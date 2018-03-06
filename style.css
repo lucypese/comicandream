@@ -1,0 +1,742 @@
+@import url("https://fonts.googleapis.com/css?family=Bree+Serif|Zilla+Slab");
+@import url('https://fonts.googleapis.com/css?family=Passion+One');
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+
+  /* Responsive para 3 dispositivos:
+  Móvil: hasta 415px
+  iPad: hasta 768px
+  Pc: hasta 1024px
+  */
+
+body {
+  background: black;
+  font-family: "Zilla Slab", serif;
+  font-size: 15px;
+  color: black;
+  padding-bottom: 70px;}
+  @media (min-width: 415px) {
+    body {
+      background: black; } }
+  @media (min-width: 768px) {
+    body {
+      background: black; } }
+  @media (min-width: 1024px) {
+    body {
+      background: black; } }
+
+
+  /* ----------- SUBIDA DE COMICS */
+form {
+  padding: 10px; }
+
+label, input, button, button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box; }
+
+label {
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white; }
+
+input, button {
+  margin: 5px 0 15px 0;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid white;
+  font-size: 15px;
+  width: 100%; }
+  input:focus, button:focus {
+    outline-color: yellow; }
+
+button {
+  background-color: yellow;
+  font-family: 'Bahnschrift Light';
+  text-transform: uppercase;
+  color: black;
+  font-weight: bold;
+  transition: all 0.25s; }
+  button:active {
+    background: yellow;
+    letter-spacing: 10px; }
+
+
+/* ----------- CONTENEDOR PRINCIPAL */
+.container {
+  width: 100%;
+  display: flex;
+  background:black;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px; }
+  @media (min-width: 1024px) {   /*  el contenedor se queda fijo */
+    .container {
+      width: 1024px;
+      margin: 0 auto; } }
+
+
+/* ----------- HEADER */
+.web-header {
+  box-sizing: border-box;
+  background: rgba(255, 255, 0, 0.65);
+  font-family: 'Passion One', cursive;
+  color: black;
+  text-align: center;
+  padding: 15px;
+  transition: background 0.9s;
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  display: flex;
+  flex-direction: row;
+  }
+  .web-header:hover {
+    background: yellow; }
+
+  .web-header .web-title { /* TÍTULO DE LA PÁGINA ACTUAL */
+    font-size: 30px;
+    width: 100%;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    padding-top: 11px;
+    margin-right: 0px; }
+
+    @media (max-width: 415px) { /*No aparece cuando es pantalla móvil*/
+      .web-title {
+        display: none; } } 
+
+ .title-img { /* IMAGEN DE PORTADA */
+  background-size: 100% 100%;
+  background-repeat: repeat;
+  background-position: center center;
+  background-image: url('https://img00.deviantart.net/f485/i/2018/064/0/4/portada_by_luchi_lucy-dc50jhe.jpg');
+  height: 100vh;
+  width: 100%;
+  transition: background-size 0.5s;
+  border-bottom: solid black 10px; }
+  .title-img:hover {
+    background-size: 115% 115%; }
+  /* Según el formato la portada cambia de tamaño */
+  @media (max-width: 414px) {
+    .title-img { /* En formato de móvil cambia de imagen */
+      height: 500px;
+    background-image: url('https://orig00.deviantart.net/e647/f/2018/064/2/b/movil_by_luchi_lucy-dc50jjf.jpg'); } }
+  @media (min-width: 768px) {
+    .title-img {
+      height: 500px; } }
+  @media (min-width: 1024px) {
+    .title-img {
+      height: 900px; } }
+
+
+
+/* ----------- LISTA DE COMICS */
+.comics-list {
+margin: 55px; }
+  .comics-list .ui-status {
+    display: none; }
+  .comics-list.empty .ui-status.empty {
+    display: block; }
+  .comics-list.loading .ui-status.loading {
+    display: block; }
+  .comics-list.error .ui-status.error {
+    display: block; }
+  .comics-list.ideal .ui-status.ideal {
+    display: block; }
+  .comics-list.empty, .comics-list.loading, .comics-list.error {
+    font-size: 20px;
+    text-align: center;
+    padding-top: 50px; }
+
+  .comics-list .comic { /* Caja */
+    box-sizing: border-box;
+    width: calc(100% - 10px);
+    float: left;
+    background: white;
+    border-bottom: solid yellow 10px;
+    padding: 15px;
+    margin: 10px 5px;
+    box-shadow: 1px 1px 10px black; }
+    @media (min-width: 415px) {
+      .comics-list .comic {
+        width: calc(25% - 10px); } }
+
+    .comics-list .comic .cover {
+      width: 100%;}
+    .comics-list .comic .title {
+      font-weight: bold;
+      height: 30px;
+      margin-top: 10px; }
+    .comics-list .comic .info {
+      margin-top: 10px;
+      height: 130px;
+      overflow: scroll; }
+
+.comic-form .ui-status.error {
+  text-align: center;
+  background-color: red;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 10px;
+  display: none; }
+
+.comic-form .ui-status.loading {
+  text-align: center;
+  margin-bottom: 10px;
+  display: none; }
+
+.comic-form.error .ui-status.error {
+  display: block; }
+
+.comic-form.loading .ui-status.loading {
+  display: block; }
+
+@media (min-width: 415px) {
+  .comic-form .form-control-group {
+    box-sizing: border-box;
+    width: calc(50% - 4px);
+    display: inline-block;
+    padding: 0 5px; } }
+
+
+.bloque {
+  display:flex;
+  flex-direction: column;}
+  .bloque .title-recomendaciones {
+    display:flex;
+    height: 40px;
+    width: 100%;
+    background-color: gray;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px; }
+    
+  .bloque .recomendaciones-container { /* Contenedor principal */
+    display: flex;
+    flex-direction: column; }
+     .bloque .title-recomendaciones h1 { /* Hoy recomendamos... */
+      color: black;
+      font-family: 'Bahnschrift Light';
+      width: 100%;
+      padding-left: 55px;
+       }
+    .bloque .recomendaciones-container .recomend-item { /* Contenedor del comic */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      height: 800px;}
+      .bloque .recomendaciones-container .recomend-item.uno {
+        background-color: black;
+        height: 300px; }
+
+      .bloque .recomendaciones-container .recomend-item .informacion {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: black; }
+        @media (min-width: 415px) {
+          .bloque .recomendaciones-container .recomend-item .informacion {
+            width: 90%; } }
+        @media (min-width: 1024px) {
+          .bloque .recomendaciones-container .recomend-item .informacion {
+            width: 80%; } }
+        .bloque .recomendaciones-container .recomend-item .informacion .nombre { 
+          font-family: 15px;
+          font-size: 30px;
+          font-family: 'Passion One', cursive;
+          color: white;
+          padding-top: 15px;}
+        .bloque .recomendaciones-container .recomend-item .informacion .salida {
+          font-size: 12px;
+          color: yellow;
+          font-family: 'Bahnschrift Light';
+          text-shadow: 1px 1px white;
+          font-style: italic;
+          text-transform: uppercase; }
+        .bloque .recomendaciones-container .recomend-item .informacion .texto {
+          font-size: 15px;
+          font-family: 'Bahnschrift Light';
+          background-color: white;
+          border-bottom: solid yellow 10px;
+          overflow: scroll;
+          height: 100px;
+          padding: 20px;
+          margin: 20px;
+          color: black;
+          line-height: 1.7em; }
+
+
+
+/* ----------- FOOTER */
+.web-footer {
+  box-sizing: border-box;
+  background: rgba(250, 250,0, 0.65);
+  padding: 15px;
+  color: #DBDBDB;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  transition: background 0.9s; }
+  .web-footer:hover {
+    background: yellow; }
+  .web-footer .web-title {
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase; }
+
+
+
+
+/*---------- PÁGINAS */
+.paginas {
+  display: inline-block;
+  text-align: center;
+  font-family: 'Bahnschrift Light';
+}
+  .previous {
+      background-color: #f1f1f1;
+      color: black;
+      width: 100px;
+      padding: 10px;
+  }
+  
+  .next {
+      background-color: yellow;
+      color: black;
+      width: 100px;
+      padding: 10px;
+  }
+
+
+
+/*------------- NAVEGADOR */
+  .navbar {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;  
+    height: 50px;
+    width: 450px;
+  }
+  @media (max-width: 415px) { /* La navegación se pone en row en móvil*/
+    .navbar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%; } }
+
+      @media (min-width: 415px) {
+        .navbar {
+          width: 600px; } }
+  
+  /* Links dentro del navbar */
+  .navbar a {
+    font-family: 'Bahnschrift Light';
+    float: left;
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+  }
+.navbar a:hover {
+  background-color: black;
+  color: white;
+}
+/* Buscador del navbar */
+.buscador {
+	width: 200px;
+  height: 20px;}
+
+/* Caja con los iconos de redes sociales y el buscador */
+.redesybuscar {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 768px) {
+  .redesybuscar {
+  display: flex;
+	flex-direction: column;
+  width: 250px;
+  margin-bottom: -20px;}}
+@media (max-width: 415px) {
+  .redesybuscar {
+    display: none; } } /*No aparece cuando es pantalla móvil*/
+/* Caja con los iconos de redes sociales */
+.cajaredes {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+/* Iconos de redes sociales */
+.redes {
+  width: 30px;
+  height: 30px;
+  transition: 1s;}
+.redes:hover { opacity: 0.5;}
+
+
+
+/* ABOUT */
+.bloque .about-container {
+  display: flex;
+  flex-direction: column;
+  order: 1;
+width: 100%; }
+  @media (min-width: 1024px) {
+    .bloque .about-container {
+    flex-direction: row; } }
+
+
+  .bloque .about-container .persona-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;}
+    @media (min-width: 415px) {
+      .bloque .about-container .persona-item {
+        flex-direction: row;
+        height: 800px; } }
+    @media (min-width: 1024px) {
+      .bloque .about-container .persona-item {
+        flex-direction: column;
+        height: 900px;} }
+
+
+    .bloque .about-container .persona-item.uno {
+      background-color: yellow;
+      padding-top: 20px;
+      padding-bottom: 20px;}
+      @media (min-width: 1024px) { /*Para que se estiren y se pongan en orden en pantalla grande*/
+        .bloque .about-container .persona-item.uno {
+          flex: 7;
+          order: 1;
+          padding-top: 0px;
+          padding-bottom: 0px; } }
+
+
+    .bloque .about-container .persona-item.dos {
+      background-color: black;
+      padding-top: 20px;
+      padding-bottom: 20px; }
+     @media (min-width: 1024px) { /*Para que se estiren y se pongan en orden en pantalla grande*/
+        .bloque .about-container .persona-item.dos {
+          flex: 7;
+          order: 2;
+          padding-top: 0px;
+          padding-bottom: 0px; } }
+
+
+    .bloque .about-container .persona-item.tres {
+      background-color: yellow;
+      padding-top: 20px;
+      padding-bottom: 20px; }
+      @media (min-width: 1024px) { /*Para que se estiren y se pongan en orden en pantalla grande*/
+        .bloque .about-container .persona-item.tres {
+          flex: 7;
+          order: 3;
+          padding-top: 0px;
+          padding-bottom: 0px; } }
+
+    .bloque .about-container .persona-item .img-about {
+      max-width: 95%;
+      height: 190px;
+      min-width: 150px;
+      border-radius: 50%;
+      border: solid white 10px;
+      margin-bottom: 20px;
+      transition: 1.5s; }
+
+      .bloque .about-container .persona-item .img-about:hover {
+        opacity: 0.5;
+        transform:          rotate(270deg);
+        -ms-transform:      rotate(380deg);
+        -moz-transform:     rotate(380deg);
+        -webkit-transform:  rotate(380deg);
+        -o-transform:       rotate(380deg);
+      }
+      @media (min-width: 415px) {
+        .bloque .about-container .persona-item .img-about {
+          max-width: 95%;
+          height: 350px;
+          min-width: 170px; } }
+      @media (min-width: 1024px) {
+        .bloque .about-container .persona-item .img-about {
+          max-width: 95%;
+          height: 300px;
+          min-width: 150px; } }
+    .bloque .about-container .persona-item .informacion {
+      display: flex;
+      flex-direction: column;
+      align-items: center; }
+      @media (min-width: 415px) {
+        .bloque .about-container .persona-item .informacion {
+          width: 90%; } }
+      @media (min-width: 1024px) {
+        .bloque .about-container .persona-item .informacion {
+          width: 80%; } }
+      .bloque .about-container .persona-item .informacion .nombre {
+        font-family: 15px;
+        font-size: 30px;
+        font-family: 'Passion One', cursive;
+        color: white;}
+        .bloque .about-container .persona-item .informacion .nombre-negro {
+          font-family: 15px;
+          font-size: 30px;
+          font-family: 'Passion One', cursive;
+          color: black;}
+
+      .bloque .about-container .persona-item .informacion .ventas {
+        font-size: 12px;
+        color: yellow;
+        font-family: 'Bahnschrift Light';
+        text-shadow: 1px 1px white;
+        font-style: italic;
+        text-transform: uppercase; }
+        .bloque .about-container .persona-item .informacion .ventas-negro {
+          font-size: 12px;
+          color: black;
+          font-family: 'Bahnschrift Light';
+          text-shadow: 1px 1px white;
+          font-style: italic;
+          text-transform: uppercase; }
+
+
+      .bloque .about-container .persona-item .informacion .texto {
+        font-size: 15px;
+        font-family: 'Bahnschrift Light';
+        background-color: white;
+        border-bottom: solid yellow 10px;
+        width: 300px;
+        padding: 20px;
+        margin: 20px;
+        color: black;
+        line-height: 1.7em; }
+        .bloque .about-container .persona-item .informacion .texto-negro {
+          font-size: 15px;
+          font-family: 'Bahnschrift Light';
+          background-color: white;
+          border-bottom: solid black 10px;
+          width: 300px;
+          padding: 20px;
+          margin: 20px;
+          color: black;
+          line-height: 1.7em; }
+
+
+
+
+
+
+/* DETALLE COMIC */
+.bloque .detalle-container {
+  display: flex;
+  flex-direction: column;
+  order: 1;
+width: 100%; }
+  @media (min-width: 1024px) {
+    .bloque .detalle-container {
+    flex-direction: row; } }
+
+
+  .bloque .detalle-container .comic-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;}
+    @media (min-width: 415px) {
+      .bloque .detalle-container .comic-item {
+        flex-direction: row;
+        height: 800px; } }
+    @media (min-width: 1024px) {
+      .bloque .detalle-container .comic-item {
+        flex-direction: column;
+        height: 900px;} }
+
+
+    .bloque .detalle-container .comic-item.uno {
+      background-color: yellow;
+      padding-top: 20px;
+      padding-bottom: 20px;}
+      @media (min-width: 1024px) { /*Para que se estiren y se pongan en orden en pantalla grande*/
+        .bloque .detalle-container .comic-item.uno {
+          flex: 7;
+          order: 1; } }
+
+
+    .bloque .detalle-container .comic-item.dos {
+      background-color: black;
+      padding-top: 20px;
+      padding-bottom: 20px; }
+     @media (min-width: 1024px) { /*Para que se estiren y se pongan en orden en pantalla grande*/
+        .bloque .detalle-container .comic-item.dos {
+          flex: 7;
+          order: 2; } }
+     @media (max-width: 415px) {
+        .bloque .detalle-container .comic-item.dos {
+          background-color: black; } }
+     @media (max-width: 768px) {
+        .bloque .detalle-container .comic-item.dos {
+        height: 300px; } }
+    @media (max-width: 415px) {
+      .bloque .detalle-container .comic-item.dos {
+        height: 600px; } }
+
+    .bloque .detalle-container .comic-item .img-detalle {
+      max-width: 95%;
+      height: 600px;
+      min-width: 150px;
+      border: solid white 10px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      transition: 1.5s; }
+
+      .bloque .detalle-container .comic-item .img-detalle:hover {
+        opacity: 0.8;
+      }
+      @media (min-width: 415px) { /* La imagen cambia de tamaño según el dispositivo*/
+        .bloque .detalle-container .comic-item .img-detalle {
+          width: 400px;
+          height: 600px; } }
+      @media (max-width: 415px) {
+        .bloque .detalle-container .comic-item .img-detalle {
+          width: 300px;
+          height: 460px; } }
+      @media (min-width: 1024px) {
+        .bloque .detalle-container .comic-item .img-detalle {
+          max-width: 95%;
+          height: 600px;
+          min-width: 150px; } }
+    .bloque .detalle-container .comic-item .informacion {
+      display: flex;
+      flex-direction: column;
+      align-items: center; }
+      @media (min-width: 415px) {
+        .bloque .detalle-container .comic-item .informacion {
+          width: 90%; } }
+      @media (min-width: 1024px) {
+        .bloque .detalle-container .comic-item .informacion {
+          width: 80%; } }
+      .bloque .detalle-container .comic-item .informacion .nombre {
+        font-family: 15px;
+        font-size: 30px;
+        font-family: 'Passion One', cursive;
+        color: white;
+        padding-top: 20px;}
+        @media (max-width: 415px) {
+          .bloque .detalle-container .comic-item .informacion .nombre {
+            width: 250px; } }
+        .bloque .detalle-container .comic-item .informacion .nombre-negro {
+          font-family: 15px;
+          font-size: 30px;
+          font-family: 'Passion One', cursive;
+          color: black;
+        }
+
+      .bloque .detalle-container .comic-item .informacion .texto {
+        font-size: 15px;
+        font-family: 'Bahnschrift Light';
+        background-color: white;
+        border-bottom: solid yellow 10px;
+        overflow: scroll;
+        width: 500px;
+        height: 700px;
+        padding: 20px;
+        margin: 20px;
+        color: black;
+        line-height: 1.7em; }
+        @media (max-width: 415px) {
+          .bloque .detalle-container .comic-item .informacion .texto {
+            width: 300px; } }
+        @media (max-width: 768px) {
+          .bloque .detalle-container .comic-item .informacion .texto {
+          height: 200px;} }
+        @media (max-width: 415px) {
+          .bloque .detalle-container .comic-item .informacion .texto {
+            height: 500px; } }
+        .bloque .detalle-container .comic-item .informacion .texto-autor {
+          font-size: 15px;
+          font-family: 'Bahnschrift Light';
+          background-color: white;
+          border-bottom: solid black 10px;
+          width: 500px;
+          padding: 20px;
+          margin: 20px;
+          color: black;
+          line-height: 1.7em;
+          display: flex;
+          flex-direction: row;
+          align-content: center;
+          align-items: center; }
+
+          @media (max-width: 415px) {
+            .bloque .detalle-container .comic-item .informacion .texto-autor {
+              width: 300px; } }
+
+      .autor { /* Avatar del autor*/
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+
+
+
+/* SCROLLBAR */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: yellow; 
+}
